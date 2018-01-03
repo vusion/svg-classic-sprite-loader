@@ -1,0 +1,16 @@
+.arrow,
+.clock,
+.heart {
+    width: 32px;
+    height: 32px;
+}
+
+.arrow {
+    background: url('./svg/arrow.svg');
+}
+.clock {
+    background: url('./svg/clock.svg');
+}
+.heart {
+    background: url('./svg/heart.svg');
+}

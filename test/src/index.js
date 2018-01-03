@@ -1,0 +1,1 @@
+document.getElementById('inject').innerHTML = require('./index.css') + require('./index.1.css') + require('./svg/index.2.css');
