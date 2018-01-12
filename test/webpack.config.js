@@ -25,6 +25,7 @@ module.exports = {
                         options: {
                             spriteName: 'sprite',
                             base: resolve(__dirname, "./src"),
+                            padding: 20,
                         },
                     },
                 ],
