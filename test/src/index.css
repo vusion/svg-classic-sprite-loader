@@ -14,3 +14,6 @@
 .heart {
     background: url('./svg/heart.svg');
 }
+.img {
+    background: url('./img/img.png?t=2');
+}
