@@ -23,9 +23,11 @@ module.exports = {
                     {
                         loader: resolve(__dirname, "../index.js"),
                         options: {
-                            spriteName: 'sprite',
+                            defaultName: 'sprite',
                             base: resolve(__dirname, "./src"),
                             padding: 20,
+                            queryParam: 's',
+                            filter: 'heart',
                         },
                     },
                 ],

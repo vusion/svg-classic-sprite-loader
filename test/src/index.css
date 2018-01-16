@@ -9,7 +9,7 @@
     background: url('./svg/arrow.svg');
 }
 .clock {
-    background: url('./svg/clock.svg');
+    background: url('./svg/clock.svg?s=sprite3');
 }
 .heart {
     background: url('./svg/heart.svg');
