@@ -27,7 +27,7 @@ module.exports = {
                             base: resolve(__dirname, "./src"),
                             padding: 20,
                             queryParam: 's',
-                            filter: 'heart',
+                            filter: 'query',
                         },
                     },
                 ],
