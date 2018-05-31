@@ -2,7 +2,6 @@
 
 **将svg拼接为雪碧(sprite)图并生成样式的Webpack loader**
 
-[![CircleCI][circleci-img]][circleci-url]
 [![NPM Version][npm-img]][npm-url]
 [![Dependencies][david-img]][david-url]
 [![NPM Download][download-img]][download-url]
@@ -86,29 +85,36 @@ module.exports = {
 在css中，一个完整的svg路径格式如下：
 > ../path/to/yourSvg.svg?[queryParam]=[spriteName]
 
-- queryParm
-键的名称，默认值为`'sprite'`，一般不需要在loader中修改默认值。如果loader中的配置为`filter: query`，则需要填写该值。
+#### queryParm
 
-- spriteName
-  生成拼接图文件名，默认值为loader参数中`defaultName`的值，表示该svg需要放置在哪个拼接图
+键的名称，默认值为`'sprite'`，一般不需要在loader中修改默认值。
+
+#### spriteName
+
+生成拼接图文件名，默认值为loader参数中`defaultName`的值，表示该svg需要放置在哪个拼接图
 
 
 ### loader参数
 #### defaultName
 默认值 `'sprite'`
+
 默认svg拼接图的文件名
 
 #### padding
 默认值 `20`
+
 拼接图上每个svg的间隔
 
 #### queryParam
 默认值 `'sprite'`
-见[url参数](#url参数)说明
+
+见[queryParm](#queryParm)说明
 
 #### filter
 默认值 `'all'`
+
 可选值 `'all'`、`'query'`、`RegExp`
+
 筛选参与合成拼接图的svg
 
  + `'all'`:所有被引用的svg都将被拼接
@@ -117,7 +123,7 @@ module.exports = {
 
 ## 示例
 
-### 分组拼接svg：
+### 输出多个拼接图：
 
 ```css
 .test{
@@ -129,7 +135,6 @@ module.exports = {
 ....
 ```
 
-示例说明：
 `check.svg`参与`sprite1`的拼接，`accessory.svg`参与`sprite2`的拼接，最终输出拼接图`sprite1.svg`和`sprite2.svg`
 
 ### 修改queryParam
@@ -153,7 +158,6 @@ options: {
 }
 ```
 
-示例说明：
 `check.svg`参与`sprite1`拼接，`log-check.svg`参与[defaultName](#defaultName)拼接(默认值`sprite`)，最终输出拼接图`sprite1.svg`和`sprite.svg`
 
 ### 使用正则表达式过滤
@@ -177,7 +181,6 @@ options: {
 }
 ```
 
-示例说明：
 仅有`log-check.svg`参与`sprite1`的拼接，最终输出拼接图`sprite1.svg`和`check.svg`
 
 ### 使用query过滤
@@ -203,7 +206,6 @@ options: {
 }
 ```
 
-示例说明：
 `log-check.svg`和`check.svg`参与`sprite`的拼接，最终输出拼接图`sprite.svg`，`apm-check.svg`
 
 ## 贡献指南
