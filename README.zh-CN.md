@@ -1,13 +1,23 @@
-#svg-classic-sprite-loader
+# svg-classic-sprite-loader
 
 **将svg拼接为雪碧(sprite)图并生成样式的Webpack loader**
 
-![npm](https://img.shields.io/npm/v/svg-classic-sprite-loader.svg)
-![npm](https://img.shields.io/npm/dt/svg-classic-sprite-loader.svg)
-![node](https://img.shields.io/node/v/svg-classic-sprite-loader.svg)
-![](https://img.shields.io/badge/webpack-%3C4-red.svg)
+[![CircleCI][circleci-img]][circleci-url]
+[![NPM Version][npm-img]][npm-url]
+[![Dependencies][david-img]][david-url]
+[![NPM Download][download-img]][download-url]
 
-##安装
+[circleci-img]: https://img.shields.io/circleci/project/github/vusion/svg-classic-sprite-loader.svg?style=flat-square
+[circleci-url]: https://circleci.com/gh/vusion/svg-classic-sprite-loader
+[npm-img]: http://img.shields.io/npm/v/svg-classic-sprite-loader.svg?style=flat-square
+[npm-url]: http://npmjs.org/package/svg-classic-sprite-loader
+[david-img]: http://img.shields.io/david/vusion/svg-classic-sprite-loader.svg?style=flat-square
+[david-url]: https://david-dm.org/vusion/svg-classic-sprite-loader
+[download-img]: https://img.shields.io/npm/dm/svg-classic-sprite-loader.svg?style=flat-square
+[download-url]: https://npmjs.org/package/svg-classic-sprite-loader
+
+
+## 安装
 
 
 > npm install --save-dev svg-classic-sprite-loader
@@ -16,7 +26,7 @@
 **注意：该loader目前不支持`webpack`4.x**
 
 
-##快速开始
+## 快速开始
 在`webpack.config.js`中配置`loader`
 
 ```js
@@ -64,16 +74,15 @@ module.exports = {
 
 更多范例请查看[这里](#示例)
 
-##特点:sparkles:
+## 特点:sparkles:
 - 使用简单，仅在css中设置相关svg路径。
 - 按需合成拼接图，减少手动合成的麻烦。
-- 可以将svg分组合并为多个拼接图。
-    `eg: 可输出多个拼接图: sprite1.svg，sprite2.svg...`
+- 可输出多个拼接图。
 
 
-##配置
+## 配置
 
-###url参数
+### url参数
 在css中，一个完整的svg路径格式如下：
 > ../path/to/yourSvg.svg?[queryParam]=[spriteName]
 
@@ -84,20 +93,20 @@ module.exports = {
   生成拼接图文件名，默认值为loader参数中`defaultName`的值，表示该svg需要放置在哪个拼接图
 
 
-###loader参数
-- defaultName
+### loader参数
+#### defaultName
 默认值 `'sprite'`
 默认svg拼接图的文件名
 
-- padding
+#### padding
 默认值 `20`
 拼接图上每个svg的间隔
 
-- queryParam
+#### queryParam
 默认值 `'sprite'`
 见[url参数](#url参数)说明
 
-- filter
+#### filter
 默认值 `'all'`
 可选值 `'all'`、`'query'`、`RegExp`
 筛选参与合成拼接图的svg
@@ -106,9 +115,9 @@ module.exports = {
  + `'query'`: 只有设置 `queryParam` 属性的svg图片参与拼接
  + `RegExp`: 正则表达式，只有通过筛选的svg图片参与拼接
 
-##示例
+## 示例
 
-- 分组拼接svg：
+### 分组拼接svg：
 
 ```css
 .test{
@@ -123,7 +132,7 @@ module.exports = {
 示例说明：
 `check.svg`参与`sprite1`的拼接，`accessory.svg`参与`sprite2`的拼接，最终输出拼接图`sprite1.svg`和`sprite2.svg`
 
-- 修改queryParam
+### 修改queryParam
 
 
 ```js
@@ -145,9 +154,9 @@ options: {
 ```
 
 示例说明：
-`check.svg`参与`sprite1`拼接，`log-check.svg`参与[defaultName](#loader参数)拼接(默认值`sprite`)，最终输出拼接图`sprite1.svg`和`sprite.svg`
+`check.svg`参与`sprite1`拼接，`log-check.svg`参与[defaultName](#defaultName)拼接(默认值`sprite`)，最终输出拼接图`sprite1.svg`和`sprite.svg`
 
-- 使用正则表达式过滤
+### 使用正则表达式过滤
 
 
 ```js
@@ -171,7 +180,7 @@ options: {
 示例说明：
 仅有`log-check.svg`参与`sprite1`的拼接，最终输出拼接图`sprite1.svg`和`check.svg`
 
-- 使用query过滤
+### 使用query过滤
 
 ```js
 /*webpack.config.js*/
