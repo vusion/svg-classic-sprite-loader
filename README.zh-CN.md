@@ -87,11 +87,11 @@ module.exports = {
 
 #### queryParm
 
-键的名称，默认值为`'sprite'`，一般不需要在loader中修改默认值。
+键的名称，默认值为`'sprite'`，若`filter: query`，则`yourSvg.svg?sprite`才能参与拼接。
 
 #### spriteName
 
-生成拼接图文件名，默认值为loader参数中`defaultName`的值，表示该svg需要放置在哪个拼接图
+生成拼接图文件名，默认值为`loader`参数中`defaultName`的值，表示该 svg 需要放置在哪个拼接图
 
 
 ### loader参数
