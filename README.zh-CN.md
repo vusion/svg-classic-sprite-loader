@@ -1,6 +1,6 @@
 # svg-classic-sprite-loader
 
-**将svg拼接为雪碧(sprite)图并生成样式的Webpack loader**
+**Splice the SVG into a sprite and create a style of Webpack loader**
 
 [![NPM Version][npm-img]][npm-url]
 [![Dependencies][david-img]][david-url]
@@ -16,17 +16,17 @@
 [download-url]: https://npmjs.org/package/svg-classic-sprite-loader
 
 
-## 安装
+## Installation
 
 
 > npm install --save-dev svg-classic-sprite-loader
 
 
-**注意：该loader目前不支持`webpack`4.x**
+**Note: This loader does not currently support `Webpack` 4. x**
 
 
-## 快速开始
-在`webpack.config.js`中配置`loader`
+## Quick Start
+Setting `loader` in the `webpack.config.js`:
 
 ```js
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
 }
 ```
 
-在`css`中引入需要使用的`svg`图片：
+Using the SVG image in the `CSS`:
 
 ```css
 .test{
@@ -60,7 +60,7 @@ module.exports = {
 }
 ```
 
-加载器将引用的svg拼接为`sprite.svg`,并设置相应的`css`：
+The loader splices the referenced svg to `sprite.svg`, and set the `CSS`:
 
 ```css
 .test {
@@ -71,23 +71,23 @@ module.exports = {
 }
 ```
 
-更多范例请查看[这里](#示例)
+For more examples, [check here](#示例).
 
-## 特点:sparkles:
-- 使用简单，仅在css中设置相关svg路径。
+## Features:sparkles:
+- Easy to use, just set up the associated svg path in CSS only.
 - 按需合成拼接图，减少手动合成的麻烦。
 - 可输出多个拼接图。
 
 
-## 配置
+## Configuration
 
-### url参数
-在css中，一个完整的svg路径格式如下：
+### Url Parameters
+In `CSS`, a complete svg path format is:
 > ../path/to/yourSvg.svg?[queryParam]=[spriteName]
 
 #### queryParm
 
-键的名称，默认值为`'sprite'`，一般不需要在loader中修改默认值。
+键的名称，默认值为`'sprite'`，当`filter: query`时，`yourSvg.svg?sprite` 可参与拼接。
 
 #### spriteName
 
