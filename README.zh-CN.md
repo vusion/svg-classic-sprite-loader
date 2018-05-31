@@ -87,7 +87,7 @@ module.exports = {
 
 #### queryParm
 
-键的名称，默认值为`'sprite'`，若`filter: 'query'`，则`yourSvg.svg?sprite`才能参与拼接。
+键的名称，默认值为`'sprite'`，若`filter: 'query'`，则`yourSvg.svg?[queryParam]=[spriteName]`才能参与拼接。
 
 #### spriteName
 
