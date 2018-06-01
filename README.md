@@ -90,12 +90,12 @@ In `CSS`, a complete svg path format is:
 
 #### queryParm
 
-the name of the query key, the default value is`'sprite'`，if`filter: 'query'`, qureyParm was required.
+Name of the query key, this default value is`'sprite'`，if`filter: 'query'`, qureyParm was required.
 > `eg. yourSvg.svg?sprite=sprite`.
 
 #### spriteName
 
-the name of the sprite file, this default value is the value of the `defaultName` in the loader argument, indicating which svg should put in sprite.
+Name of the sprite file, this default value is the value of the `defaultName` in the loader argument, indicating which svg should put in sprite.
 
 
 ### Loader Parameters
