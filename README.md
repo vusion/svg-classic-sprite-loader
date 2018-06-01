@@ -1,6 +1,6 @@
 # svg-classic-sprite-loader
 
-**Splice the SVG into a sprite and create a style of Webpack loader**
+**Webpack loader for splice the SVG into Sprite and create CSS Style**
 
 [![NPM Version][npm-img]][npm-url]
 [![Dependencies][david-img]][david-url]
@@ -22,7 +22,7 @@
 > npm install --save-dev svg-classic-sprite-loader
 
 
-**Note: This loader does not support `Webpack` 4. x currently**
+**Note: This loader does not support `Webpack 4.x` currently.**
 
 
 ## Quick Start
@@ -83,16 +83,19 @@ For more examples, [check here](#example).
 
 ### URL Parameters
 In `CSS`, a complete svg path format is:
-> ../path/to/yourSvg.svg?[queryParam]=[spriteName]
+
+```
+../path/to/yourSvg.svg?[queryParam]=[spriteName]
+```
 
 #### queryParm
 
-the name of the query key，the default value is`'sprite'`，if`filter: 'query'`,qureyParm was required.
-`eg. yourSvg.svg?sprite=sprite`.
+the name of the query key, the default value is`'sprite'`，if`filter: 'query'`, qureyParm was required.
+> `eg. yourSvg.svg?sprite=sprite`.
 
 #### spriteName
 
-the name of the sprite file, the default value is the value of the `defaultName` in the loader argument,indicating which svg should put in sprite.
+the name of the sprite file, this default value is the value of the `defaultName` in the loader argument, indicating which svg should put in sprite.
 
 
 ### Loader Parameters
@@ -159,7 +162,7 @@ options: {
 }
 ```
 
-`check.svg` get in `sprite1` splice，`log-check.svg` get in [defaultName](#defaultName) splice(default value `sprite`)，finally output `sprite1.svg` and `sprite.svg`.
+`check.svg` get in `sprite1` splice，`log-check.svg` get in [defaultName](#defaultName) splice(default value `'sprite'`)，finally output `sprite1.svg` and `sprite.svg`.
 
 ### Using RegExp expression filter
 
@@ -184,7 +187,7 @@ options: {
 
 Only `log-check.svg` get in `sprite1` splice ，finally output `sprite1.svg` and `check.svg`.
 
-### Using `query` filter
+### Using `query` method filter
 
 ```js
 /*webpack.config.js*/
