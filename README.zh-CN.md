@@ -87,7 +87,8 @@ module.exports = {
 
 #### queryParm
 
-键的名称，默认值为`'sprite'`，若`filter: 'query'`，则`yourSvg.svg?[queryParam]=[spriteName]`才能参与拼接。
+键的名称，默认值为`'sprite'`，若`filter: 'query'`，则需要填写`queryParm`才能参与拼接。
+`eg. yourSvg.svg?sprite=sprite`
 
 #### spriteName
 
@@ -108,7 +109,7 @@ module.exports = {
 #### queryParam
 默认值 `'sprite'`
 
-见[queryParm](#queryParm)说明
+见url参数中[queryParm](#url参数)说明
 
 #### filter
 默认值 `'all'`
@@ -117,7 +118,7 @@ module.exports = {
 
 筛选参与合成拼接图的svg
 
- + `'all'`:所有被引用的svg都将被拼接
+ + `'all'`: 所有被引用的svg都将被拼接
  + `'query'`: 只有设置 `queryParam` 属性的svg图片参与拼接
  + `RegExp`: 正则表达式，只有通过筛选的svg图片参与拼接
 

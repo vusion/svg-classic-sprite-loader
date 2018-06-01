@@ -1,56 +1,219 @@
 # svg-classic-sprite-loader
-这篇文章的 [https://css-tricks.com/svg-fragment-identifiers-work/#article-header-id-4](https://css-tricks.com/svg-fragment-identifiers-work/#article-header-id-4) 例子，在 `Safari` 下仅有一个生效。为了浏览器兼容，需要有一个能满足此规则的 `svg sprite loader`。
 
-## 用法
-```css
-/* in css */
-.arrow-1 {
-    background: url('./svg/arrow.1.svg?sprite=sprite3');
+**Splice the SVG into a sprite and create a style of Webpack loader**
+
+[![NPM Version][npm-img]][npm-url]
+[![Dependencies][david-img]][david-url]
+[![NPM Download][download-img]][download-url]
+
+[circleci-img]: https://img.shields.io/circleci/project/github/vusion/svg-classic-sprite-loader.svg?style=flat-square
+[circleci-url]: https://circleci.com/gh/vusion/svg-classic-sprite-loader
+[npm-img]: http://img.shields.io/npm/v/svg-classic-sprite-loader.svg?style=flat-square
+[npm-url]: http://npmjs.org/package/svg-classic-sprite-loader
+[david-img]: http://img.shields.io/david/vusion/svg-classic-sprite-loader.svg?style=flat-square
+[david-url]: https://david-dm.org/vusion/svg-classic-sprite-loader
+[download-img]: https://img.shields.io/npm/dm/svg-classic-sprite-loader.svg?style=flat-square
+[download-url]: https://npmjs.org/package/svg-classic-sprite-loader
+
+
+## Installation
+
+
+> npm install --save-dev svg-classic-sprite-loader
+
+
+**Note: This loader does not support `Webpack` 4. x currently**
+
+
+## Quick Start
+Setting `loader` in the `webpack.config.js`:
+
+```js
+module.exports = {
+  ...
+  module: {
+    rules: [
+      {test: /\.css$/, use: [
+        'style-loader',
+        'css-loader',
+        'svg-classic-sprite-loader',
+      ]},
+      {test: /\.svg$/, use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]'
+          }
+      }}
+    ]
+  }
 }
 ```
-``` js
-// webpack config
-rules: [
-    {
-        test: /\.css$/,
-        use: [
-            {
-                loader: 'to-string-loader',
-            },
-            {
-                loader: 'css-loader',
-            },
-            {
-                loader: resolve(__dirname, "../index.js"),
-                options: {
-                    defaultName: 'sprite',
-                    padding: 10,
-                },
-            },
-        ],
-    },
-    {
-        test: /\.svg$/,
-        use: [
-            {
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]'
-                }
-            },
-        ],
-    },
-]
+
+Using the `SVG` image in the `CSS`:
+
+```css
+.test{
+    background: url(./assets/check.svg);
+}
+.test1{
+    background: url(./assets/accessory.svg);
+}
 ```
 
-## options
-+ `defaultName` 默认值 `sprite`, 该值用来生成合并后的 `svg` 名字，如果在 `background: url('./svg/arrow.1.svg?sprite=sprite3');` 中使用了 `sprite` 指定了新的合并文件，则 `arrow.1.svg` 不参与默认 `sprite` 的合并
+The loader splices the referenced `svg` to `sprite.svg`, and set the `CSS`:
 
-+ `padding` 默认值 `20`，每个图形周围空白的边框
+```css
+.test {
+    background: url(sprite.svg) calc(-72px - (72px - 32px)/2) calc(0px - (72px - 32px)/2) no-repeat;
+}
+.test1 {
+    background: url(sprite.svg) calc(0px - (72px - 32px)/2) calc(0px - (72px - 32px)/2) no-repeat;
+}
+```
 
-+ `queryParam` 默认值 `sprite`，eg: `background: url('./svg/arrow.1.svg?sprite=sprite3');`，定义 `queryParam=a`，则可以写成 `background: url('./svg/arrow.1.svg?a=sprite3');`
+For more examples, [check here](#example).
 
-+ `filter`  默认值 `all`，可选值 `all`、`query`、`RegExp`。
-    + `all` 所有的 `svg` 都会参与生成 `sprite`
-    + `query` 只有在链接后面添加 `?[queryParam]` 或者 `?[queryParam]=[name]` 的才会参与生成 `sprite`
-    + `RegExp` 通过筛选的才会参与生成 `sprite`
+## Features:sparkles:
+- Easy to use, just set up the associated svg path in CSS only.
+- Generating sprite according to need.
+- Output multiple sprite.
+
+
+## Configuration
+
+### URL Parameters
+In `CSS`, a complete svg path format is:
+> ../path/to/yourSvg.svg?[queryParam]=[spriteName]
+
+#### queryParm
+
+the name of the query key，the default value is`'sprite'`，if`filter: 'query'`,qureyParm was required.
+`eg. yourSvg.svg?sprite=sprite`.
+
+#### spriteName
+
+the name of the sprite file, the default value is the value of the `defaultName` in the loader argument,indicating which svg should put in sprite.
+
+
+### Loader Parameters
+#### defaultName
+Default value `'sprite'`
+
+The file name of the default sprite file.
+
+#### padding
+Default value `20`
+
+The margin of each svg on the sprite.
+
+#### queryParam
+Default value `'sprite'`
+
+See The [queryParm](#queryParm) description.
+
+#### filter
+Default value `'all'`
+
+Available value `'all'`、`'query'`、`RegExp`
+
+Filter the SVG that is involved in the Sprite.
+
+ + `'all'`: All reference SVG will be spliced.
+ + `'query'`: Only Settings the SVG image of the property `queryParam` can join the sprite.
+ + `RegExp`: RegExp expression，only the svg image which pass through the filter can join the Sprite.
+
+## Example
+
+### Output Multiple Sprite:
+
+```css
+.test{
+    background: url(./assets/check.svg?sprite=sprite1);
+}
+.test1{
+    background: url(./assets/accessory.svg?sprite=sprite2);
+}
+....
+```
+
+`check.svg`is a part of`sprite1`,`accessory.svg` is a part of `sprite2`，finally output`sprite1.svg` and `sprite2.svg`.
+
+### Modify `queryParam`
+
+
+```js
+/*webpack.config.js*/
+loader: 'svg-classic-sprite-loader',
+options: {
+    'queryParam': 'aaa'
+},
+```
+
+```css
+/*css*/
+.test{
+    background: url(./assets/check.svg?aaa=sprite1);
+}
+.test1{
+    background: url(./assets/log-check.svg?sprite=sprite1);
+}
+```
+
+`check.svg` get in `sprite1` splice，`log-check.svg` get in [defaultName](#defaultName) splice(default value `sprite`)，finally output `sprite1.svg` and `sprite.svg`.
+
+### Using RegExp expression filter
+
+
+```js
+/*webpack.config.js*/
+loader: 'svg-classic-sprite-loader',
+options: {
+    'filter': /log/,
+},
+```
+
+```css
+/*css*/
+.test{
+    background: url(./assets/log-check.svg?sprite=sprite1);
+}
+.test1{
+    background: url(./assets/check.svg?sprite=sprite1);
+}
+```
+
+Only `log-check.svg` get in `sprite1` splice ，finally output `sprite1.svg` and `check.svg`.
+
+### Using `query` filter
+
+```js
+/*webpack.config.js*/
+loader: 'svg-classic-sprite-loader',
+options: {
+    'filter': 'query',
+},
+```
+
+```css
+/*css*/
+.test{
+    background: url(./assets/log-check.svg?sprite=sprite);
+}
+.test1{
+    background: url(./assets/check.svg?sprite);
+}
+.test2{
+    background: url(./assets/apm-check.svg);
+}
+```
+
+`log-check.svg` and `check.svg` get in `sprite` splice ,finally output `sprite.svg`，`apm-check.svg`.
+
+## Contribution Guide
+
+see [Contributing Guide](https://github.com/vusion/DOCUMENTATION/issues/4).
+
+## LICENSE
+
+see [LICENSE](LICENSE).
+
