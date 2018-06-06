@@ -23,14 +23,27 @@ module.exports = {
                     {
                         loader: resolve(__dirname, "../index.js"),
                         options: {
-                            spriteName: 'sprite',
-                            base: resolve(__dirname, "./src"),
+                            defaultName: 'sprite',
+                            padding: 20,
+                            queryParam: 's',
+                            filter: 'query',
                         },
                     },
                 ],
             },
             {
                 test: /\.svg$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]?[hash]'
+                        }
+                    },
+                ],
+            },
+            {
+                test: /\.png$/,
                 use: [
                     {
                         loader: 'file-loader',
