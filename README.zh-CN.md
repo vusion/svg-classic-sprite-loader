@@ -1,6 +1,6 @@
 # svg-classic-sprite-loader
 
-**Webpack loader for splice the SVG into Sprite and create CSS Style**
+**将svg拼接为雪碧(sprite)图并生成样式的Webpack loader**
 
 [![NPM Version][npm-img]][npm-url]
 [![Dependencies][david-img]][david-url]
@@ -16,17 +16,17 @@
 [download-url]: https://npmjs.org/package/svg-classic-sprite-loader
 
 
-## Installation
+## 安装
 
 
 > npm install --save-dev svg-classic-sprite-loader
 
 
-**Note: This loader does not support `Webpack 4.x` currently.**
+**注意：该loader目前不支持`webpack`4.x**
 
 
-## Quick Start
-Setting `loader` in the `webpack.config.js`:
+## 快速开始
+在`webpack.config.js`中配置`loader`
 
 ```js
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
 }
 ```
 
-Using the `SVG` image in the `CSS`:
+在`css`中引入需要使用的`svg`图片：
 
 ```css
 .test{
@@ -60,7 +60,7 @@ Using the `SVG` image in the `CSS`:
 }
 ```
 
-The loader splices the referenced `svg` to `sprite.svg`, and set the `CSS`:
+加载器将引用的svg拼接为`sprite.svg`,并设置相应的`css`：
 
 ```css
 .test {
@@ -71,63 +71,60 @@ The loader splices the referenced `svg` to `sprite.svg`, and set the `CSS`:
 }
 ```
 
-For more examples, [check here](#example).
+更多范例请查看[这里](#示例)
 
-## Features:sparkles:
-- Easy to use, just set up the associated svg path in CSS only.
-- Generating sprite according to need.
-- Output multiple sprite.
+## 特点:sparkles:
+- 使用简单，仅在css中设置相关svg路径。
+- 按需合成拼接图，减少手动合成的麻烦。
+- 可输出多个拼接图。
 
 
-## Configuration
+## 配置
 
-### URL Parameters
-In `CSS`, a complete svg path format is:
-
-```
-../path/to/yourSvg.svg?[queryParam]=[spriteName]
-```
+### url参数
+在css中，一个完整的svg路径格式如下：
+> ../path/to/yourSvg.svg?[queryParam]=[spriteName]
 
 #### queryParm
 
-Name of the query key, this default value is`'sprite'`，if`filter: 'query'`, qureyParm was required.
-> `eg. yourSvg.svg?sprite=sprite`.
+键的名称，默认值为`'sprite'`，若`filter: 'query'`，则需要填写`queryParm`才能参与拼接。
+`eg. yourSvg.svg?sprite=sprite`
 
 #### spriteName
 
-Name of the sprite file, this default value is the value of the `defaultName` in the loader argument, indicating which svg should put in sprite.
+生成拼接图文件名，默认值为`loader`参数中`defaultName`的值，表示该 svg 需要放置在哪个拼接图
 
 
-### Loader Parameters
+### loader参数
 #### defaultName
-Default value `'sprite'`
+默认值 `'sprite'`
 
-The file name of the default sprite file.
+默认svg拼接图的文件名
 
 #### padding
-Default value `20`
+默认值 `20`
 
-The margin of each svg on the sprite.
+拼接图上每个svg的间隔
 
 #### queryParam
-Default value `'sprite'`
+默认值 `'sprite'`
 
-See The [queryParm](#queryParm) description.
+见url参数中[queryParm](#url参数)说明
 
 #### filter
-Default value `'all'`
+默认值 `'all'`
 
-Available value `'all'`、`'query'`、`RegExp`
+可选值 `'all'`、`'query'`、`RegExp`
 
-Filter the SVG that is involved in the Sprite.
+筛选参与合成拼接图的svg
 
- + `'all'`: All reference SVG will be spliced.
- + `'query'`: Only Settings the SVG image of the property `queryParam` can join the sprite.
- + `RegExp`: RegExp expression，only the svg image which pass through the filter can join the Sprite.
+ + `'all'`: 所有被引用的svg都将被拼接
+ + `'query'`: 只有设置 `queryParam` 属性的svg图片参与拼接
+ + `RegExp`: 正则表达式，只有通过筛选的svg图片参与拼接
 
-## Example
+## 示例
 
-### Output Multiple Sprite:
+### 输出多个拼接图：
 
 ```css
 .test{
@@ -139,9 +136,9 @@ Filter the SVG that is involved in the Sprite.
 ....
 ```
 
-`check.svg`is a part of`sprite1`,`accessory.svg` is a part of `sprite2`，finally output`sprite1.svg` and `sprite2.svg`.
+`check.svg`参与`sprite1`的拼接，`accessory.svg`参与`sprite2`的拼接，最终输出拼接图`sprite1.svg`和`sprite2.svg`
 
-### Modify `queryParam`
+### 修改queryParam
 
 
 ```js
@@ -162,9 +159,9 @@ options: {
 }
 ```
 
-`check.svg` get in `sprite1` splice，`log-check.svg` get in [defaultName](#defaultName) splice(default value `'sprite'`)，finally output `sprite1.svg` and `sprite.svg`.
+`check.svg`参与`sprite1`拼接，`log-check.svg`参与[defaultName](#defaultName)拼接(默认值`sprite`)，最终输出拼接图`sprite1.svg`和`sprite.svg`
 
-### Using RegExp expression filter
+### 使用正则表达式过滤
 
 
 ```js
@@ -185,9 +182,9 @@ options: {
 }
 ```
 
-Only `log-check.svg` get in `sprite1` splice ，finally output `sprite1.svg` and `check.svg`.
+仅有`log-check.svg`参与`sprite1`的拼接，最终输出拼接图`sprite1.svg`和`check.svg`
 
-### Using `query` method filter
+### 使用query过滤
 
 ```js
 /*webpack.config.js*/
@@ -210,13 +207,13 @@ options: {
 }
 ```
 
-`log-check.svg` and `check.svg` get in `sprite` splice ,finally output `sprite.svg`，`apm-check.svg`.
+`log-check.svg`和`check.svg`参与`sprite`的拼接，最终输出拼接图`sprite.svg`，`apm-check.svg`
 
-## Contribution Guide
+## 贡献指南
 
-see [Contributing Guide](https://github.com/vusion/DOCUMENTATION/issues/4).
+参见[Contributing Guide](https://github.com/vusion/DOCUMENTATION/issues/4)
 
-## LICENSE
+## 开源协议
 
-see [LICENSE](LICENSE).
+参见[LICENSE](LICENSE)
 
