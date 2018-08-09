@@ -1,10 +1,12 @@
 # svg-classic-sprite-loader
 
+- [中文说明](README.zh-CN.md)
+
 Webpack loader for creating classic SVG sprites.
 
 The main reason we make a different loader from [svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader) is that non-classic way (not using `background-position`) to create svg sprite does not work in Safari.
 
-[This article] (https://css-tricks.com/svg-fragment-identifiers-work/#article-header-id-4) shows several ways to create svg sprites. You can take a look in different browers.
+[This article](https://css-tricks.com/svg-fragment-identifiers-work/#article-header-id-4) shows several ways to create svg sprites. You can take a look in different browers.
 
 [![NPM Version][npm-img]][npm-url]
 [![Dependencies][david-img]][david-url]
