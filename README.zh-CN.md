@@ -1,6 +1,10 @@
 # svg-classic-sprite-loader
 
-将 svg 合并为雪碧图并生成样式的 Webpack loader
+用传统方式将 svg 合并为雪碧图的 Webpack loader。
+
+这个和[svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader)的主要区别是，非传统（即不使用`background-position`）方式创造的雪碧图在 Safari 下无法显示。
+
+[这篇文章](https://css-tricks.com/svg-fragment-identifiers-work/#article-header-id-4) 展示了多种生成 svg 雪碧图的方式，可以在不同的浏览器上观察一下。
 
 [![NPM Version][npm-img]][npm-url]
 [![Dependencies][david-img]][david-url]
@@ -20,7 +24,7 @@
 
 > npm install --save-dev svg-classic-sprite-loader
 
-** 注意：该 loader 目前还不支持 Webpack@4.x。 **
+**注意：该 loader 目前还不支持 Webpack@4.x。**
 
 ## 快速开始
 
@@ -58,7 +62,7 @@ module.exports = {
 }
 ```
 
-loader 会将引入的 svg 合并为`sprite.svg`，并替换相应的 CSS：
+loader 会将引入的 svg 合并成一个雪碧图，并替换相应的 CSS：
 
 ``` css
 .foo {

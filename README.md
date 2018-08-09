@@ -2,10 +2,9 @@
 
 Webpack loader for creating classic SVG sprites.
 
-The main reason we create a different loader from [svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader) is that non-classic way (not using `background-position`) to create svg sprite does not work in Safari.
+The main reason we make a different loader from [svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader) is that non-classic way (not using `background-position`) to create svg sprite does not work in Safari.
 
 [This article] (https://css-tricks.com/svg-fragment-identifiers-work/#article-header-id-4) shows several ways to create svg sprites. You can take a look in different browers.
-
 
 [![NPM Version][npm-img]][npm-url]
 [![Dependencies][david-img]][david-url]
@@ -25,7 +24,7 @@ The main reason we create a different loader from [svg-sprite-loader](https://gi
 
 > npm install --save-dev svg-classic-sprite-loader
 
-** Note: This loader does not support Webpack@4.x currently. **
+**Note: This loader does not support Webpack@4.x currently.**
 
 ## Quick Start
 
@@ -52,7 +51,7 @@ module.exports = {
 };
 ```
 
-Using the `SVG` image in CSS files:
+Use svgs in a CSS file:
 
 ``` css
 .foo {
@@ -63,7 +62,7 @@ Using the `SVG` image in CSS files:
 }
 ```
 
-The loader splices the referenced `svg` to `sprite.svg`, and set the `CSS`:
+The loader will merge svgs into a sprite file, and replace CSS codes:
 
 ``` css
 .foo {
@@ -121,7 +120,7 @@ The key of query param in svg path. Only useful when `filter: 'query'`
 
 ## Example
 
-### Use `query`
+### Use query
 
 ``` js
 /* webpack.config.js */
@@ -147,7 +146,7 @@ options: {
 `log-check.svg` and `check.svg` are merged into `sprite.svg`. Finally output files are `sprite.svg` and `apm-check.svg`.
 
 
-### Output Multiple Sprites:
+### Output multiple sprites
 
 ``` css
 .foo {
