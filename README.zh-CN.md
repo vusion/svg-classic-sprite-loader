@@ -1,6 +1,6 @@
 # svg-classic-sprite-loader
 
-**将svg拼接为雪碧(sprite)图并生成样式的Webpack loader**
+将 svg 合并为雪碧图并生成样式的 Webpack loader
 
 [![NPM Version][npm-img]][npm-url]
 [![Dependencies][david-img]][david-url]
@@ -18,196 +18,164 @@
 
 ## 安装
 
-
 > npm install --save-dev svg-classic-sprite-loader
 
-
-**注意：该loader目前不支持`webpack`4.x**
-
+** 注意：该 loader 目前还不支持 Webpack@4.x。 **
 
 ## 快速开始
-在`webpack.config.js`中配置`loader`
 
-```js
+在`webpack.config.js`中添加`loader`如下：
+
+``` js
 module.exports = {
-  ...
-  module: {
-    rules: [
-      {test: /\.css$/, use: [
-        'style-loader',
-        'css-loader',
-        'svg-classic-sprite-loader',
-      ]},
-      {test: /\.svg$/, use: {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]'
-          }
-      }}
-    ]
-  }
+    ...
+    module: {
+        rules: [
+            { test: /\.css$/, use: [
+                'style-loader',
+                'css-loader',
+                'svg-classic-sprite-loader',
+            ] },
+            { test: /\.svg$/, use: {
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]'
+                }
+            } },
+        ],
+    },
+};
+```
+
+然后在 CSS 文件中引入需要的 svg 图片：
+
+``` css
+.foo {
+    background: url(./assets/check.svg?sprite);
+}
+.bar {
+    background: url(./assets/accessory.svg?sprite);
 }
 ```
 
-在`css`中引入需要使用的`svg`图片：
+loader 会将引入的 svg 合并为`sprite.svg`，并替换相应的 CSS：
 
-```css
-.test{
-    background: url(./assets/check.svg);
+``` css
+.foo {
+    background: url(sprite.svg) -20px -20px no-repeat;
 }
-.test1{
-    background: url(./assets/accessory.svg);
-}
-```
-
-加载器将引用的svg拼接为`sprite.svg`,并设置相应的`css`：
-
-```css
-.test {
-    background: url(sprite.svg) calc(-72px - (72px - 32px)/2) calc(0px - (72px - 32px)/2) no-repeat;
-}
-.test1 {
-    background: url(sprite.svg) calc(0px - (72px - 32px)/2) calc(0px - (72px - 32px)/2) no-repeat;
+.bar {
+    background: url(sprite.svg) -92px -20px no-repeat;
 }
 ```
 
-更多范例请查看[这里](#示例)
+更多范例请查看[示例](#示例)
 
 ## 特点:sparkles:
-- 使用简单，仅在css中设置相关svg路径。
-- 按需合成拼接图，减少手动合成的麻烦。
-- 可输出多个拼接图。
 
+- 使用简单，仅在 CSS 中设置相关的 svg 路径；
+- 按需合成雪碧图，减少手动合成的麻烦；
+- 可输出多个雪碧图。
 
 ## 配置
 
-### url参数
-在css中，一个完整的svg路径格式如下：
-> ../path/to/yourSvg.svg?[queryParam]=[spriteName]
-
-#### queryParm
-
-键的名称，默认值为`'sprite'`，若`filter: 'query'`，则需要填写`queryParm`才能参与拼接。
-`eg. yourSvg.svg?sprite=sprite`
-
-#### spriteName
-
-生成拼接图文件名，默认值为`loader`参数中`defaultName`的值，表示该 svg 需要放置在哪个拼接图
-
-
 ### loader参数
-#### defaultName
-默认值 `'sprite'`
 
-默认svg拼接图的文件名
+#### defaultName
+
+- Type: `string`
+- Default: `'sprite'`
+
+默认 svg 雪碧图的文件名
 
 #### padding
-默认值 `20`
 
-拼接图上每个svg的间隔
+- Type: `number`
+- Default: `'sprite'`
 
-#### queryParam
-默认值 `'sprite'`
-
-见url参数中[queryParm](#url参数)说明
+雪碧图上 svg 之间的间隔
 
 #### filter
-默认值 `'all'`
 
-可选值 `'all'`、`'query'`、`RegExp`
+- Type: `string`
+- Default: `'all'`
 
-筛选参与合成拼接图的svg
+可选值：`'all'`、`'query'`、`RegExp`
 
- + `'all'`: 所有被引用的svg都将被拼接
- + `'query'`: 只有设置 `queryParam` 属性的svg图片参与拼接
- + `RegExp`: 正则表达式，只有通过筛选的svg图片参与拼接
+筛选参与合并雪碧图的 svg 文件：
+- `'all'`: 所有被引用的 svg 都要被合并
+- `'query'`: 只有在路径中添加了`?sprite`请求参数的 svg 才会被合并
+- `RegExp`: 根据正则表达式来匹配路径
+
+#### queryParam
+
+路径中的请求参数的key，当`filter: 'query'`才生效。
+
+- Type: `string`
+- Default: `'sprite'`
 
 ## 示例
 
-### 输出多个拼接图：
+### 使用 query 过滤
 
-```css
-.test{
-    background: url(./assets/check.svg?sprite=sprite1);
-}
-.test1{
-    background: url(./assets/accessory.svg?sprite=sprite2);
-}
-....
-```
-
-`check.svg`参与`sprite1`的拼接，`accessory.svg`参与`sprite2`的拼接，最终输出拼接图`sprite1.svg`和`sprite2.svg`
-
-### 修改queryParam
-
-
-```js
-/*webpack.config.js*/
+``` js
+/* webpack.config.js */
 loader: 'svg-classic-sprite-loader',
 options: {
-    'queryParam': 'aaa'
+    filter: 'query',
 },
 ```
 
-```css
-/*css*/
-.test{
-    background: url(./assets/check.svg?aaa=sprite1);
+``` css
+/* css */
+.test {
+    background: url(./assets/log-check.svg?sprite);
 }
-.test1{
-    background: url(./assets/log-check.svg?sprite=sprite1);
+.test1 {
+    background: url(./assets/check.svg?sprite=sprite);
 }
-```
-
-`check.svg`参与`sprite1`拼接，`log-check.svg`参与[defaultName](#defaultName)拼接(默认值`sprite`)，最终输出拼接图`sprite1.svg`和`sprite.svg`
-
-### 使用正则表达式过滤
-
-
-```js
-/*webpack.config.js*/
-loader: 'svg-classic-sprite-loader',
-options: {
-    'filter': /log/,
-},
-```
-
-```css
-/*css*/
-.test{
-    background: url(./assets/log-check.svg?sprite=sprite1);
-}
-.test1{
-    background: url(./assets/check.svg?sprite=sprite1);
-}
-```
-
-仅有`log-check.svg`参与`sprite1`的拼接，最终输出拼接图`sprite1.svg`和`check.svg`
-
-### 使用query过滤
-
-```js
-/*webpack.config.js*/
-loader: 'svg-classic-sprite-loader',
-options: {
-    'filter': 'query',
-},
-```
-
-```css
-/*css*/
-.test{
-    background: url(./assets/log-check.svg?sprite=sprite);
-}
-.test1{
-    background: url(./assets/check.svg?sprite);
-}
-.test2{
+.test2 {
     background: url(./assets/apm-check.svg);
 }
 ```
 
-`log-check.svg`和`check.svg`参与`sprite`的拼接，最终输出拼接图`sprite.svg`，`apm-check.svg`
+`log-check.svg`和`check.svg`参与`sprite.svg`的合并，最终输雪碧接图`sprite.svg`，`apm-check.svg`。
+
+### 输出多个雪碧图
+
+``` css
+.foo {
+    background: url(./assets/check.svg?sprite=sprite1);
+}
+.bar {
+    background: url(./assets/accessory.svg?sprite=sprite2);
+}
+...
+```
+
+`check.svg`参与`sprite1`的合并，`accessory.svg`参与`sprite2`的合并，最终输出雪碧图`sprite1.svg`和`sprite2.svg`。
+
+### 使用正则表达式过滤
+
+```js
+/* webpack.config.js */
+loader: 'svg-classic-sprite-loader',
+options: {
+    filter: /log/,
+},
+```
+
+```css
+/* css */
+.test{
+    background: url(./assets/log-check.svg?sprite=sprite1);
+}
+.test1{
+    background: url(./assets/check.svg?sprite=sprite1);
+}
+```
+
+仅有`log-check.svg`参与`sprite1`的合并，最终输出雪碧图`sprite1.svg`和`check.svg`。
 
 ## 贡献指南
 
@@ -215,5 +183,5 @@ options: {
 
 ## 开源协议
 
-参见[LICENSE](LICENSE)
+[MIT](LICENSE)
 
