@@ -1,6 +1,6 @@
 # svg-classic-sprite-loader
 
-- [English README](README.md)
+- [README in English](README.md)
 
 用传统方式将 svg 合并为雪碧图的 Webpack loader。
 
@@ -85,37 +85,36 @@ loader 会将引入的 svg 合并成一个雪碧图，并替换相应的 CSS：
 
 ## 配置
 
-### loader参数
+### loader 参数
 
 #### defaultName
+
+默认合并的雪碧图名称
 
 - Type: `string`
 - Default: `'sprite'`
 
-默认 svg 雪碧图的文件名
-
 #### padding
+
+雪碧图中 svg 之间的间距
 
 - Type: `number`
 - Default: `'sprite'`
 
-雪碧图上 svg 之间的间隔
-
 #### filter
 
-- Type: `string`
-- Default: `'all'`
+如何筛选参与合并雪碧图的 svg 文件，可选值：`'all'`、`'query'`、`RegExp`
 
-可选值：`'all'`、`'query'`、`RegExp`
-
-筛选参与合并雪碧图的 svg 文件：
 - `'all'`: 所有被引用的 svg 都要被合并
 - `'query'`: 只有在路径中添加了`?sprite`请求参数的 svg 才会被合并
 - `RegExp`: 根据正则表达式来匹配路径
 
+- Type: `string`
+- Default: `'all'`
+
 #### queryParam
 
-路径中的请求参数的key，当`filter: 'query'`才生效。
+自定义路径中的请求参数 key，当`filter: 'query'`才生效。
 
 - Type: `string`
 - Default: `'sprite'`
@@ -182,6 +181,10 @@ options: {
 ```
 
 仅有`log-check.svg`参与`sprite1`的合并，最终输出雪碧图`sprite1.svg`和`check.svg`。
+
+## 修改日志
+
+参见[Releases](https://github.com/vusion/svg-classic-sprite-loader/releases)
 
 ## 贡献指南
 

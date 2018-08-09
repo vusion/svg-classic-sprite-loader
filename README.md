@@ -99,7 +99,7 @@ Default file name of sprite output file.
 - Type: `number`
 - Default: `'sprite'`
 
-The margin between svgs in the sprite.
+The margin between svgs in sprite.
 
 #### filter
 
@@ -115,7 +115,7 @@ How to filter svg files for merging:
 
 #### queryParam
 
-The key of query param in svg path. Only useful when `filter: 'query'`
+Customize key of query param in svg path. Only works when `filter: 'query'`
 
 - Type: `string`
 - Default: `'sprite'`
@@ -183,6 +183,10 @@ options: {
 ```
 
 Only `log-check.svg` is merged into `sprite1.svg`. Finally output files are `sprite1.svg` and `check.svg`.
+
+## Changelog
+
+See [Releases](https://github.com/vusion/svg-classic-sprite-loader/releases)
 
 ## Contribution Guide
 
