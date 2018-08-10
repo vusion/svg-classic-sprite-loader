@@ -120,7 +120,7 @@ Customize key of query param in svg path. Only works when `filter: 'query'`
 - Type: `string`
 - Default: `'sprite'`
 
-## Example
+## Examples
 
 ### Use query
 
@@ -190,9 +190,8 @@ See [Releases](https://github.com/vusion/svg-classic-sprite-loader/releases)
 
 ## Contribution Guide
 
-See [Contributing Guide](https://github.com/vusion/DOCUMENTATION/issues/8).
+See [Contributing Guide](https://github.com/vusion/DOCUMENTATION/issues/8)
 
 ## LICENSE
 
 [MIT](LICENSE)
-
