@@ -24,7 +24,9 @@ The main reason we make a different loader from [svg-sprite-loader](https://gith
 
 ## Installation
 
-> npm install --save-dev svg-classic-sprite-loader
+``` shell
+npm install --save-dev svg-classic-sprite-loader
+```
 
 **Note: This loader does not support Webpack@4.x currently.**
 

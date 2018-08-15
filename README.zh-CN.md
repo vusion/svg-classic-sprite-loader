@@ -24,7 +24,9 @@
 
 ## 安装
 
-> npm install --save-dev svg-classic-sprite-loader
+``` shell
+npm install --save-dev svg-classic-sprite-loader
+```
 
 **注意：该 loader 目前还不支持 Webpack@4.x。**
 
