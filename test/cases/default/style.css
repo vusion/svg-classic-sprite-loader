@@ -10,43 +10,35 @@ body {
 .source.simple {
     width: 32px;
     height: 32px;
-    background: url('../../images/arrow.svg');
 }
 .sprite.simple {
     width: 32px;
     height: 32px;
-    background: url('../../images/arrow.svg?sprite');
 }
 
 .source.query {
     width: 32px;
     height: 32px;
-    background: url('../../images/clock.svg');
 }
 .sprite.query {
     width: 32px;
     height: 32px;
-    background: url('../../images/clock.svg?sprite=sprite');
 }
 
 .source.rename {
     width: 32px;
     height: 32px;
-    background: url('../../images/heart.svg');
 }
 .sprite.rename {
     width: 32px;
     height: 32px;
-    background: url('../../images/heart.svg?sprite=sprite-nav');
 }
 
 .source.rename-2 {
     width: 200px;
     height: 200px;
-    background: url('../../images/eiffel-tower.svg');
 }
 .sprite.rename-2 {
     width: 200px;
     height: 200px;
-    background: url('../../images/eiffel-tower.svg?sprite=sprite-nav');
 }
