@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+}
+
+.part {
+    display: inline-block;
+    width: 50%;
+}
+
+.source.simple {
+    width: 32px;
+    height: 32px;
+}
+.sprite.simple {
+    width: 32px;
+    height: 32px;
+}
+
+.source.query {
+    width: 32px;
+    height: 32px;
+}
+.sprite.query {
+    width: 32px;
+    height: 32px;
+}
+
+.source.rename {
+    width: 32px;
+    height: 32px;
+}
+.sprite.rename {
+    width: 32px;
+    height: 32px;
+}
+
+.source.rename-2 {
+    width: 200px;
+    height: 200px;
+}
+.sprite.rename-2 {
+    width: 200px;
+    height: 200px;
+}
