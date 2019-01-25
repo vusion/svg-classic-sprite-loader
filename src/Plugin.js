@@ -6,16 +6,14 @@ const SVGSpriter = require('svg-sprite');
 const postcss = require('postcss');
 const getConfig = require('./getConfig');
 const computeNewBackground = require('./computeNewBackground');
+const meta = require('./meta');
 
-class CSSSpritePlugin extends BasePlugin {
+class SVGClassicSpritePlugin extends BasePlugin {
     constructor(options) {
         options = options || {};
         super();
-
-        this.NAMESPACE = 'SVGClassicSpritePlugin';
-        this.MODULE_MARK = 'isSVGClassicSpriteModule';
-        this.REPLACE_REG = /SVG_CLASSIC_SPRITE_LOADER_IMAGE\('([^)'"]*?)', '([^)'"]*)'\)/g;
         this.REPLACE_AFTER_OPTIMIZE_TREE = true;
+        Object.assign(this, meta);
 
         this.options = Object.assign(this.options, {
             // @inherit: output: './',
@@ -27,7 +25,6 @@ class CSSSpritePlugin extends BasePlugin {
             filter: 'query',
             plugins: [],
         }, options);
-        // this.spriteSmith =
         this.data = {}; // { [group: string]: { [md5: string]: { id: string, oldBackground: Background } } }
     }
     apply(compiler) {
@@ -74,6 +71,7 @@ class CSSSpritePlugin extends BasePlugin {
                             item.blockSize,
                             coordinates[item.filePath],
                             result.properties,
+                            1,
                         );
                         background.valid = true;
                         const content = background.toString();
@@ -85,14 +83,14 @@ class CSSSpritePlugin extends BasePlugin {
                 });
         });
 
-        Promise.all(promises).then(() => callback());
+        return Promise.all(promises).then(() => callback()).catch((e) => callback(e));
     }
 
     /**
      * @override
      * Replace Function
      */
-    REPLACE_FUNCTION(groupName, id) {
+    REPLACER_FUNC(groupName, id) {
         return this.data[groupName][id].content;
     }
 
@@ -100,9 +98,9 @@ class CSSSpritePlugin extends BasePlugin {
      * @override
      * Replace Function to escape
      */
-    REPLACE_FUNCTION_ESCAPED(groupName, id) {
+    REPLACER_FUNC_ESCAPED(groupName, id) {
         return this.data[groupName][id].content;
     }
 }
 
-module.exports = CSSSpritePlugin;
+module.exports = SVGClassicSpritePlugin;

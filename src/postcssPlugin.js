@@ -1,6 +1,8 @@
 const postcss = require('postcss');
 const { utils } = require('base-css-image-loader');
+const meta = require('./meta');
 const CSSFruit = require('css-fruit').default;
+
 CSSFruit.config({
     forceParsing: {
         url: true,
@@ -20,105 +22,88 @@ module.exports = postcss.plugin('svg-classic-sprite-parser', ({ loaderContext })
         if (!decls.length)
             return;
 
-        let oldBackground;
-        try {
-            oldBackground = CSSFruit.absorb(decls);
-        } catch (e) {
-            return Promise.reject(e);
+        /**
+         * Core variable 0
+         */
+        const oldBackground = CSSFruit.absorb(decls);
+        if (!oldBackground.valid) {
+            rule.warn(result, 'Invalid background');
+            return;
         }
+
         if (!oldBackground.image)
             return;
-        if (!oldBackground.image.path.endsWith('.png'))
+
+        // For browsers
+        if (oldBackground.image._type !== 'url')
             return;
-        if (options.filter === 'query') {
-            if (!(oldBackground.image.query && oldBackground.image.query[options.queryParam]))
-                return;
-        } else if (options.filter instanceof RegExp) {
-            if (!oldBackground.image.path.test(options.filter))
-                return;
-        } else if (options.filter !== 'all')
+        const oldBackgroundString = oldBackground.toString();
+
+        // Check whether need sprite
+        // Keep consistent with css-sprite-loader
+        const checkWhetherNeedSprite = (url) => {
+            if (!url.path.endsWith('.png'))
+                return false;
+            if (options.filter === 'query')
+                return !!(url.query && url.query[options.queryParam]);
+            else if (options.filter instanceof RegExp)
+                return url.path.test(options.filter);
+            else if (options.filter === 'all')
+                return true;
+            else
+                throw new TypeError(`Unknow filter value '${options.filter}'`);
+        };
+
+        if (!checkWhetherNeedSprite(oldBackground.image))
             return;
+
+        /**
+         * Core variable 3
+         */
+        const blockSize = {
+            width: undefined,
+            height: undefined,
+        };
+        // Check width & height
+        rule.walkDecls((decl) => {
+            if (decl.prop === 'width')
+                blockSize.width = decl.value;
+            else if (decl.prop === 'height')
+                blockSize.height = decl.value;
+        });
 
         promises.push(new Promise((resolve, reject) => {
             loaderContext.resolve(loaderContext.context, oldBackground.image.path, (err, result) => err ? reject(err) : resolve(result));
         }).then((filePath) => {
+            // Clean decls in source
+            decls.forEach((decl) => decl.remove());
+
             loaderContext.addDependency(filePath);
 
-            const ruleItem = {
-                id: 'ID' + utils.genMD5(oldBackground.toString()),
+            const query = oldBackground.image.query;
+            const groupName = query && typeof query[options.queryParam] === 'string' ? query[options.queryParam] : options.defaultName;
+            const groupItem = {
+                id: 'ID' + utils.genMD5(oldBackgroundString),
+                groupName,
+                filePath,
                 oldBackground,
-                blockSize: {
-                    width: undefined,
-                    height: undefined,
-                },
-                // imageSet: {},
+                blockSize,
+                content: undefined, // new background cached
             };
 
-            const query = oldBackground.image.query;
-            const baseGroupName = typeof query[options.queryParam] === 'string' ? query[options.queryParam] : options.defaultName;
-
-            // // According to query retina, collect image set
-            // const pathRE = /(^.*?)(?:@(\d+x))?\.png$/;
-            // const paramRE = /^retina@?(\d+x)$/;
-            // const found = filePath.match(pathRE);
-            // if (!found)
-            //     throw new Error('Error format of filePath');
-            // let [, basePath, defaultResolution] = found;
-            // if (!defaultResolution)
-            //     defaultResolution = 'default';
-            // // 默认的不一定为 sprite@1x.png，看用户使用情况
-            // ruleItem.imageSet[defaultResolution] = filePath;
-            // ruleItem.defaultResolution = defaultResolution;
-
-            // Object.keys(query).forEach((param) => {
-            //     // @compat: old version
-            //     if (param === 'retina')
-            //         param = 'retina@2x';
-
-            //     const found = param.match(paramRE);
-            //     if (!found)
-            //         return;
-
-            //     const resolution = found[1];
-            //     ruleItem.imageSet[resolution] = `${basePath}${resolution === '1x' ? '' : '@' + resolution}.png`;
-            // });
-
-            // Check width & height
-            rule.walkDecls((decl) => {
-                if (decl.prop === 'width')
-                    ruleItem.blockSize.width = decl.value;
-                else if (decl.prop === 'height')
-                    ruleItem.blockSize.height = decl.value;
-            });
-
-            // Clean source decls
-            decls.forEach((decl) => decl.remove());
-            // Object.keys(ruleItem.imageSet).forEach((resolution) => {
-            const groupName = baseGroupName;
-            const groupItem = ruleItem;
-            groupItem.filePath = filePath;
-            groupItem.content = undefined;
-
-            // if (resolution === defaultResolution) {
-            rule.append({ prop: 'background', value: `SVG_CLASSIC_SPRITE_LOADER_IMAGE('${groupName}', '${groupItem.id}')` });
-            // } else {
-            //     groupName += '@' + resolution;
-            //     // No problem in async function
-            //     rule.after(genMediaQuery(resolution, rule.selector, `background: SVG_CLASSIC_SPRITE_LOADER_IMAGE('${groupName}', '${groupItem.id}');`));
-            // }
+            rule.append({ prop: 'background', value: `${meta.REPLACER_NAME}(${groupName}, ${groupItem.id})` });
 
             if (!data[groupName])
                 data[groupName] = {};
-                // background 的各种内容没变，id 一定不会变
+            // background 的各种内容没变，id 一定不会变
             if (!data[groupName][groupItem.id])
                 data[groupName][groupItem.id] = groupItem;
-            // });
         }));
     });
 
     if (promises.length) {
         plugin.shouldGenerate = true;
-        loaderContext._module.isSVGClassicSpriteModule = true;
+        loaderContext._module[meta.MODULE_MARK] = true;
     }
 
     return Promise.all(promises);
