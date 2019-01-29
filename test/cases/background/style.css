@@ -68,66 +68,76 @@ body {
 
 .source.bg-size {
     width: 100px;
-    height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg') no-repeat;
+    height: 100px;
+    background-image: url('../../fixtures/images/eiffel-tower.svg');
+    background-repeat: no-repeat;
     background-size: 100%;
 }
 .sprite.bg-size {
     width: 100px;
-    height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg?sprite') no-repeat;
+    height: 100px;
+    background-image: url('../../fixtures/images/eiffel-tower.svg?sprite');
+    background-repeat: no-repeat;
     background-size: 100%;
 }
 
 .source.bg-size-pixel {
     width: 100px;
-    height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg') no-repeat;
-    background-size: 80px;
+    height: 100px;
+    background-image: url('../../fixtures/images/eiffel-tower.svg');
+    background-repeat: no-repeat;
+    background-size: 90px;
 }
 .sprite.bg-size-pixel {
     width: 100px;
-    height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg?sprite') no-repeat;
-    background-size: 80px;
+    height: 100px;
+    background-image: url('../../fixtures/images/eiffel-tower.svg?sprite');
+    background-repeat: no-repeat;
+    background-size: 90px;
 }
 
 .source.bg-size-height {
     width: 100px;
-    height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg') no-repeat;
+    height: 130px;
+    background-image: url('../../fixtures/images/eiffel-tower.svg');
+    background-repeat: no-repeat;
     background-size: auto 120px;
 }
 .sprite.bg-size-height {
     width: 100px;
-    height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg?sprite') no-repeat;
+    height: 130px;
+    background-image: url('../../fixtures/images/eiffel-tower.svg?sprite');
+    background-repeat: no-repeat;
     background-size: auto 120px;
 }
 
 .source.bg-size-cover {
     width: 100px;
     height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg') no-repeat;
+    background-image: url('../../fixtures/images/eiffel-tower.svg');
+    background-repeat: no-repeat;
     background-size: cover;
 }
 .sprite.bg-size-cover {
     width: 100px;
     height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg?sprite') no-repeat;
+    background-image: url('../../fixtures/images/eiffel-tower.svg?sprite');
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
 .source.bg-size-contain {
     width: 100px;
-    height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg') no-repeat;
+    height: 100px;
+    background-image: url('../../fixtures/images/eiffel-tower.svg');
+    background-repeat: no-repeat;
     background-size: contain;
 }
 .sprite.bg-size-contain {
     width: 100px;
-    height: 150px;
-    background: url('../../fixtures/images/eiffel-tower.svg?sprite') no-repeat;
+    height: 100px;
+    background-image: url('../../fixtures/images/eiffel-tower.svg?sprite');
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
@@ -184,27 +194,27 @@ body {
 .source.bg-position-and-size {
     width: 100px;
     height: 150px;
-    background: url('../../fixtures/images/chrome.svg') 60px -40px;
+    background: url('../../fixtures/images/chrome.svg') 30px 40px no-repeat;
     background-size: 100%;
 }
 .sprite.bg-position-and-size {
     width: 100px;
     height: 150px;
-    background: url('../../fixtures/images/chrome.svg?sprite') 60px -40px;
+    background: url('../../fixtures/images/chrome.svg?sprite') 30px 40px no-repeat;
     background-size: 100%;
 }
 
 .source.bg-position-and-size-outside {
     width: 200px;
     height: 200px;
-    background: url('../../fixtures/images/chrome.svg');
+    background: url('../../fixtures/images/chrome.svg') no-repeat;
     background-size: 200px 100px;
     background-position: 60px -40px;
 }
 .sprite.bg-position-and-size-outside {
     width: 200px;
     height: 200px;
-    background: url('../../fixtures/images/chrome.svg?sprite');
+    background: url('../../fixtures/images/chrome.svg?sprite') no-repeat;
     background-size: 200px 100px;
     background-position: 60px -40px;
 }
