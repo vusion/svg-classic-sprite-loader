@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const { BasePlugin } = require('base-css-image-loader');
-const SVGSpriter = require('svg-sprite');
+const SVGSpriter = require('@vusion/svg-sprite');
 const postcss = require('postcss');
 const getConfig = require('./getConfig');
 const computeNewBackground = require('./computeNewBackground');
@@ -48,39 +48,48 @@ class SVGClassicSpritePlugin extends BasePlugin {
             const spriter = new SVGSpriter(config);
             files.forEach((file) => spriter.add(file, null, fs.readFileSync(file, 'utf8')));
             return new Promise((resolve, reject) =>
-                spriter.compile((err, result) => err ? reject(err) : resolve(result)))
-                .then((result) => {
-                    const output = this.getOutput({
-                        name: groupName,
-                        ext: 'png',
-                        content: result.image,
-                    }, compilation);
+                spriter.compile((err, result, data) => err ? reject(err) : resolve({ sprite: result.css.sprite, data: data.css }))
+            ).then(({ sprite, data }) => {
+                const output = this.getOutput({
+                    name: groupName,
+                    ext: 'svg',
+                    content: sprite.contents,
+                }, compilation);
 
-                    compilation.assets[output.path] = {
-                        source: () => result.image,
-                        size: () => result.image.length,
+                compilation.assets[output.path] = {
+                    source: () => sprite.contents,
+                    size: () => sprite.contents.length,
+                };
+
+                const coordinates = {};
+                data.shapes.forEach((shape) => {
+                    coordinates[shape.path] = {
+                        x: -shape.position.absolute.x,
+                        y: -shape.position.absolute.y,
+                        width: shape.width.inner,
+                        height: shape.height.inner,
                     };
+                });
 
-                    const coordinates = result.coordinates;
-                    keys.forEach((key) => {
-                        const item = group[key];
-                        // Add new background according to result of sprite
-                        const background = computeNewBackground(
-                            item.oldBackground,
-                            output.url,
-                            item.blockSize,
-                            coordinates[item.filePath],
-                            result.properties,
-                            1,
-                        );
-                        background.valid = true;
-                        const content = background.toString();
+                keys.forEach((key) => {
+                    const item = group[key];
+                    // Add new background according to result of sprite
+                    const background = computeNewBackground(
+                        item.oldBackground,
+                        output.url,
+                        item.blockSize,
+                        coordinates[item.filePath],
+                        { width: data.spriteWidth, height: data.spriteHeight },
+                        1,
+                    );
+                    background.valid = true;
+                    const content = background.toString();
 
-                        return postcss(this.options.plugins).process(`background: ${content};`).then((result) => {
-                            item.content = result.root.nodes[0].value;
-                        });
+                    return postcss(this.options.plugins).process(`background: ${content};`).then((result) => {
+                        item.content = result.root.nodes[0].value;
                     });
                 });
+            });
         });
 
         return Promise.all(promises).then(() => callback()).catch((e) => callback(e));

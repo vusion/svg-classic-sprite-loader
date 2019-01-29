@@ -13,7 +13,7 @@ CSSFruit.config({
 
 module.exports = postcss.plugin('svg-classic-sprite-parser', ({ loaderContext }) => (styles, result) => {
     const promises = [];
-    const plugin = loaderContext.relevantPlugin;
+    const plugin = loaderContext[meta.PLUGIN_NAME];
     const options = plugin.options;
     const data = plugin.data;
 
@@ -42,7 +42,7 @@ module.exports = postcss.plugin('svg-classic-sprite-parser', ({ loaderContext })
         // Check whether need sprite
         // Keep consistent with css-sprite-loader
         const checkWhetherNeedSprite = (url) => {
-            if (!url.path.endsWith('.png'))
+            if (!url.path.endsWith('.svg'))
                 return false;
             if (options.filter === 'query')
                 return !!(url.query && url.query[options.queryParam]);

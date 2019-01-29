@@ -1,3 +1,5 @@
+const SVGClassicSpritePlugin = require('../../../index').Plugin;
+
 module.exports = {
     entry: {
         bundle: './index.js',
@@ -13,4 +15,5 @@ module.exports = {
             { test: /\.(svg|png)$/, use: ['file-loader'] },
         ],
     },
+    plugins: [new SVGClassicSpritePlugin()],
 };

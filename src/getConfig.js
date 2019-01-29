@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = function () {
     return {
         mode: {
@@ -8,18 +6,17 @@ module.exports = function () {
                 common: '',
                 layout: 'packed',
                 prefix: '.',
-                render: {
-                    css: {
-                        template: path.join(__dirname, './template.html'),
-                    },
-                },
-                sprite: '',
+                // render: {
+                //     css: true,
+                // },
                 bust: false,
+                sprite: '',
             },
         },
         shape: {
             spacing: {
-                box: 'padding',
+                box: 'content',
+                // box: 'padding',
             },
         },
     };

@@ -10,35 +10,43 @@ body {
 .source.simple {
     width: 32px;
     height: 32px;
+    background: url('../../fixtures/images/arrow.svg');
 }
 .sprite.simple {
     width: 32px;
     height: 32px;
+    background: url('../../fixtures/images/arrow.svg?sprite');
 }
 
 .source.query {
     width: 32px;
     height: 32px;
+    background: url('../../fixtures/images/clock.svg');
 }
 .sprite.query {
     width: 32px;
     height: 32px;
+    background: url('../../fixtures/images/clock.svg?sprite=sprite');
 }
 
 .source.rename {
     width: 32px;
     height: 32px;
+    background: url('../../fixtures/images/heart.svg');
 }
 .sprite.rename {
     width: 32px;
     height: 32px;
+    background: url('../../fixtures/images/heart.svg?sprite=sprite-nav');
 }
 
 .source.rename-2 {
     width: 200px;
     height: 200px;
+    background: url('../../fixtures/images/eiffel-tower.svg');
 }
 .sprite.rename-2 {
     width: 200px;
     height: 200px;
+    background: url('../../fixtures/images/eiffel-tower.svg?sprite=sprite-nav');
 }
