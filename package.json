@@ -1,6 +1,6 @@
 {
   "name": "svg-classic-sprite-loader",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Webpack loader for creating classic SVG sprites",
   "author": "zhangsanshi5566@gmail.com",
   "contributors": [
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "loader-utils": "^1.1.0",
-    "@vusion/svg-sprite": "^1.5.1"
+    "@vusion/svg-sprite": "~1.5.1"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",
