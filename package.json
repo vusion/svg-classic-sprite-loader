@@ -36,7 +36,7 @@
     "base-css-image-loader": "^0.2.0",
     "css-fruit": "^0.1.2",
     "postcss": "^6.0.16",
-    "@vusion/svg-sprite": "^1.5.1"
+    "@vusion/svg-sprite": "~1.6.0"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",

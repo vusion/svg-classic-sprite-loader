@@ -2,9 +2,9 @@
 
 - [README in English](README.md)
 
-用传统方式将 svg 合并为雪碧图的 Webpack loader。
+将 svg 合并为传统雪碧图（`background-position`）的 Webpack loader。
 
-这个和[svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader)的主要区别是，非传统（即不使用`background-position`）方式创造的雪碧图在 Safari 下无法显示。
+我们不使用[svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader)的主要原因是，非传统（即不使用`background-position`）方式创造的雪碧图在 Safari 下无法显示。
 
 [这篇文章](https://css-tricks.com/svg-fragment-identifiers-work/#article-header-id-4)展示了多种生成 svg 雪碧图的方式，可以在不同的浏览器上观察一下。
 
