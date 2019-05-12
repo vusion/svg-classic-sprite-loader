@@ -1,6 +1,6 @@
 {
   "name": "svg-classic-sprite-loader",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Webpack loader for creating classic SVG sprites",
   "author": "zhangsanshi5566@gmail.com",
   "contributors": [
